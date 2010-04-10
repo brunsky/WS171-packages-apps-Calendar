@@ -343,8 +343,12 @@ public class AlertService extends Service {
         
         NotificationManager nm = 
             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        boolean reminderVibrate = 
-                prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE, false);
+
+        //Gill MARKED
+        //boolean reminderVibrate = 
+        //        prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE, false);
+        boolean reminderVibrate = false;
+
         String reminderRingtone =
                 prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_RINGTONE, null);
 

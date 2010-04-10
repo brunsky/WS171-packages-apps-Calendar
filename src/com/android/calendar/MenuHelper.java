@@ -116,10 +116,11 @@ public class MenuHelper {
         item.setIcon(android.R.drawable.ic_menu_today);
         item.setAlphabeticShortcut('t');
         
-        item = menu.add(MENU_GROUP_SELECT_CALENDARS, MENU_SELECT_CALENDARS,
-                0, R.string.menu_select_calendars);
-        item.setIcon(android.R.drawable.ic_menu_manage);
-        
+        //GILL MARKED
+        //item = menu.add(MENU_GROUP_SELECT_CALENDARS, MENU_SELECT_CALENDARS,
+        //        0, R.string.menu_select_calendars);
+        //item.setIcon(android.R.drawable.ic_menu_manage);        
+
         item = menu.add(MENU_GROUP_PREFERENCES, MENU_PREFERENCES, 0, R.string.menu_preferences);
         item.setIcon(android.R.drawable.ic_menu_preferences);
         item.setAlphabeticShortcut('p');
@@ -129,12 +130,15 @@ public class MenuHelper {
 
     public static boolean onOptionsItemSelected(Activity activity, MenuItem item, Navigator nav) {
         switch (item.getItemId()) {
-        case MENU_SELECT_CALENDARS: {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClass(activity, SelectCalendarsActivity.class);
-            activity.startActivity(intent);
-            return true;
-        }
+
+        //GILL MARKED
+        //case MENU_SELECT_CALENDARS: {
+        //    Intent intent = new Intent(Intent.ACTION_VIEW);
+        //    intent.setClass(activity, SelectCalendarsActivity.class);
+        //    activity.startActivity(intent);
+        //    return true;
+        //}
+
         case MENU_GOTO_TODAY:
             nav.goToToday();
             return true;

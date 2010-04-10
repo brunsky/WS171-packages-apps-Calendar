@@ -29,7 +29,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     // Preference keys
     static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
-    static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
+    //static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";  //GILL MARKED
     static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
     static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
     static final String KEY_START_VIEW = "startView";
@@ -47,7 +47,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
     
     ListPreference mAlertType;
-    CheckBoxPreference mVibrate;
+    //CheckBoxPreference mVibrate;   //GILL MARKED
     RingtonePreference mRingtone;
     
     @Override
@@ -60,7 +60,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
-        mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);
+        //mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);  //GILL MARKED
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         
         updateChildPreferences();
@@ -74,11 +74,12 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     
     private void updateChildPreferences() {
         if (mAlertType.getValue().equals(ALERT_TYPE_OFF)) {
-            mVibrate.setChecked(false);
-            mVibrate.setEnabled(false);
+            //GILL MARKED
+            //mVibrate.setChecked(false);
+            //mVibrate.setEnabled(false);
             mRingtone.setEnabled(false);
         } else {
-            mVibrate.setEnabled(true);
+            //mVibrate.setEnabled(true);  //GILL MARKED
             mRingtone.setEnabled(true);
         }
     }

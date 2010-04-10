@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label">"Google 日曆"</string>
+    <string name="app_label">"日曆"</string>
     <string name="calendar_plug"><font fgcolor="#ffffffff">"歡迎使用 Google 日曆！"</font>\n"Google 提供您管理每日行程的方法，讓您憑直覺快速安排活動，輕鬆存取所有行程。"</string>
     <string name="what_label">"主題"</string>
     <string name="when_label">"時間"</string>

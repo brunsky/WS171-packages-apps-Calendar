@@ -38,11 +38,6 @@
             android:ringtoneType="notification"
             android:defaultValue="content://settings/system/notification_sound" />
         
-        <CheckBoxPreference
-            android:layout="?android:attr/preferenceLayoutChild"
-            android:key="preferences_alerts_vibrate"
-            android:defaultValue="false"
-            android:title="@string/preferences_alerts_vibrate_title" />
         
         <ListPreference
             android:key="preferences_default_reminder"

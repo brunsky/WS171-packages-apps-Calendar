@@ -26,11 +26,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Gmail;
+import android.provider.Calendar.Calendars;
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.content.ContentValues;
+import android.text.format.Time;
 
 public class LaunchActivity extends Activity {
     
     // An arbitrary constant to pass to the GoogleLoginHelperService
     private static final int GET_ACCOUNT_REQUEST = 1;
+
+    private static final String[] PROJECTION= new String[]{Calendars._ID,};
     
     @Override
     protected void onCreate(Bundle icicle) {
@@ -41,21 +48,24 @@ public class LaunchActivity extends Activity {
         // the current state of the system.
         setVisible(false);
         
-        // Only try looking for an account if this is the first launch.
-        if (icicle == null) {
-            // This will request a Gmail account and if none are present, it will
-            // invoke SetupWizard to login or create one. The result is returned
-            // through onActivityResult().
-            Bundle bundle = new Bundle();
-            bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
-            GoogleLoginServiceHelper.getCredentials(
-                    this,
-                    GET_ACCOUNT_REQUEST,
-                    bundle,
-                    GoogleLoginServiceConstants.PREFER_HOSTED,
-                    Gmail.GMAIL_AUTH_SERVICE,
-                    true);
-        }
+    	final ContentResolver cr = getContentResolver();
+    	Cursor c = cr.query(Calendars.CONTENT_URI, PROJECTION,
+                          null, null, Calendars.DEFAULT_SORT_ORDER);
+    	if ((c == null) || c.getCount()== 0) {
+    		ContentValues cv = new ContentValues();
+  		cv.put(Calendars.HIDDEN, 0);
+  		cv.put(Calendars.DISPLAY_NAME, "default");
+  		cv.put(Calendars.NAME, "default");
+  		cv.put(Calendars.ACCESS_LEVEL, 700);
+  		cv.put(Calendars.SELECTED, 1);
+  		cv.put(Calendars.TIMEZONE, Time.getCurrentTimezone());
+  		cv.put(Calendars.SYNC_EVENTS, 1);
+
+		cr.insert(Calendars.CONTENT_URI, cv);
+		c.close();
+	}
+	final String account = "Hi";
+	onAccountsLoaded(account);
     }
     
     private void onAccountsLoaded(String account) {
@@ -77,22 +87,4 @@ public class LaunchActivity extends Activity {
         finish();
     }
     
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == GET_ACCOUNT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                if (intent != null) {
-                    Bundle extras = intent.getExtras();
-                    if (extras != null) {
-                        final String account;
-                        account = extras.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY);
-                        onAccountsLoaded(account);
-                    }
-                }
-            } else {
-                finish();
-            }
-        }
-    }
 }
